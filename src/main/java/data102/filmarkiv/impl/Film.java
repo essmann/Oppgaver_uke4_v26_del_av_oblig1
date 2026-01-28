@@ -18,6 +18,18 @@ public class Film {
             }
             return null;
         }
+
+        public static String sjangerToString(){
+            StringBuilder sb = new StringBuilder();
+            for (Sjanger s : Sjanger.values()) {
+                sb.append(s.name()).append(", ");
+            }
+            // Remove last comma and space
+            if(sb.length() > 2){
+                sb.setLength(sb.length() - 2);
+            }
+            return sb.toString();
+        }
     }
 
     public Film(){

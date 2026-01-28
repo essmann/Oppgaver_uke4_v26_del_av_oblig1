@@ -62,13 +62,13 @@ public class Filmarkiv implements FilmarkivADT {
     @Override
     public Film[] sokTittel(String delstreng) {
         Film[] midlertidig = new Film[antall];  // Maks mulige treff
-        int funnet = 0;  // Annet navn enn instansvariabel!
+        int funnet = 0;
 
-        for (int i = 0; i < antall; i++) {  // Kun gjennom faktiske filmer
+        for (int i = 0; i < antall; i++) {
             String tittel = filmer[i].getTittel().toLowerCase();
             String sokStreng = delstreng.toLowerCase();
 
-            if (tittel.contains(sokStreng)) {  // Enklere og mer robust!
+            if (tittel.contains(sokStreng)) {
                 midlertidig[funnet] = filmer[i];
                 funnet++;
             }
@@ -85,17 +85,42 @@ public class Filmarkiv implements FilmarkivADT {
 
     @Override
     public Film[] soekProdusent(String delstreng) {
-        return new Film[0];
+        Film[] midlertidig = new Film[antall];  // Maks mulige treff
+        int funnet = 0;
+
+        for (int i = 0; i < antall; i++) {
+            String produsent = filmer[i].getNavn().toLowerCase();
+            String sokStreng = delstreng.toLowerCase();
+
+            if (produsent.contains(sokStreng)) {
+                midlertidig[funnet] = filmer[i];
+                funnet++;
+            }
+        }
+
+        // Returner array med riktig størrelse
+        Film[] resultat = new Film[funnet];
+        for (int i = 0; i < funnet; i++) {
+            resultat[i] = midlertidig[i];
+        }
+
+        return resultat;
     }
 
     @Override
     public int antall(Film.Sjanger sjanger) {
-        return 0;
+        int funnet = 0;
+        for (int i = 0; i < antall; i++) {
+            if (filmer[i].getSjanger() == sjanger) {
+                funnet++;
+            }
+        }
+        return funnet;
     }
 
     @Override
     public int antall() {
-        return 0;
+        return this.antall;
     }
 
     //hjelpemetoder
